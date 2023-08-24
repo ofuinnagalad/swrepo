@@ -23,7 +23,9 @@ public class RebateService : IRebateService
         var result = new CalculateRebateResult();
         IRebateType rebateType = RebateTypeFactory.Build(rebate, product, request);
 
-        if (rebateType.IsValidRebate())
+        result.Success = rebateType != null && rebateType.IsValidRebate();
+
+        if (result.Success)
         {
             decimal rebateAmount = rebateType.CalculateRebateAmount();
             rebateDataStore.StoreCalculationResult(rebate, rebateAmount);

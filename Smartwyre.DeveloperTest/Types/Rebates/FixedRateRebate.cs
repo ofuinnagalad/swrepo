@@ -16,9 +16,14 @@
 
         public decimal CalculateRebateAmount()
         {
-            rebateAmount += product.Price * rebate.Percentage * request.Volume;
+            if (product != null && rebate != null && request != null)
+            {
+                rebateAmount += product.Price * rebate.Percentage * request.Volume;
 
-            return rebateAmount;
+                return rebateAmount;
+            }
+
+            return 0;
         }
 
         public bool IsValidRebate()

@@ -43,6 +43,6 @@ public class ProductDataStore
     public Product GetProduct(string productIdentifier)
     {
         // Access database to retrieve account, code removed for brevity 
-        return GetProductData().Single(x => x.Identifier == productIdentifier);
+        return GetProductData().Find(x => x.Identifier == productIdentifier);
     }
 }

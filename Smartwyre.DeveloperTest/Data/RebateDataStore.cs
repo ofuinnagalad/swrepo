@@ -7,9 +7,11 @@ namespace Smartwyre.DeveloperTest.Data;
 
 public class RebateDataStore
 {
+    public IEnumerable<Rebate> AllRebates => GetRebateData();
+
     private List<Rebate> GetRebateData()
     {
-        List<Rebate> rebateList =  new List<Rebate>()
+        List<Rebate> rebates =  new()
         {
             new Rebate
             {
@@ -31,16 +33,23 @@ public class RebateDataStore
                 Incentive = IncentiveType.AmountPerUom,
                 Amount = 70,
                 Percentage = 10
-            }
+            },
+            new Rebate
+            {
+                Identifier = "abc1",
+                Incentive = IncentiveType.FixedCashAmount,
+                Amount = 0,
+                Percentage = 5
+            },
         };
 
-        return rebateList;
+        return rebates;
     }
 
     public Rebate GetRebate(string rebateIdentifier)
     {
         // Access database to retrieve account, code removed for brevity
-        return GetRebateData().Single(x => x.Identifier == rebateIdentifier);
+        return GetRebateData().Find(x => x.Identifier == rebateIdentifier);
     }
 
     public void StoreCalculationResult(Rebate account, decimal rebateAmount)

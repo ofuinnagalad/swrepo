@@ -7,13 +7,15 @@ namespace Smartwyre.DeveloperTest.Factory
     {
         public static IRebateType Build(Rebate rebate, Product product, CalculateRebateRequest request)
         {
-            return rebate.Incentive switch
-            {
-                IncentiveType.FixedCashAmount => new FixedCashAmountRebate(rebate,product),
-                IncentiveType.FixedRateRebate => new FixedRateRebate(rebate, product, request),
-                IncentiveType.AmountPerUom => new AmountPerUomRebate(rebate, product, request),
-                _ => throw new NotImplementedException(),
-            };
+            return rebate == null
+                ? null
+                : rebate.Incentive switch
+                    {
+                        IncentiveType.FixedCashAmount => new FixedCashAmountRebate(rebate,product),
+                        IncentiveType.FixedRateRebate => new FixedRateRebate(rebate, product, request),
+                        IncentiveType.AmountPerUom => new AmountPerUomRebate(rebate, product, request),
+                        _ => throw new NotImplementedException(),
+                    };
         }
     }
 }
